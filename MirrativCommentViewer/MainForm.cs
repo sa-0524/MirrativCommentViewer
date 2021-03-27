@@ -25,7 +25,7 @@ namespace MirrativCommentViewer
         private void btnConnect_Click(object sender, EventArgs e)
         {
             var url = txbUrl.Text;
-            var matches = Constants.urlPattern.Match(url);
+            var matches = Constants.UrlPattern.Match(url);
             if (matches.Success)
             {
                 var liveId = matches.Groups[1].Value;

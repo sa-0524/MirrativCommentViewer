@@ -25,6 +25,11 @@ namespace MirrativCommentViewer
         /// <summary>
         /// URLパターン
         /// </summary>
-        public static readonly Regex urlPattern = new Regex(@"^https://www.mirrativ.com/live/([\w\-]+)$");
+        public static readonly Regex UrlPattern = new Regex(@"^https://www.mirrativ.com/live/([\w\-]+)$");
+
+        /// <summary>
+        /// コメントの間隔
+        /// </summary>
+        public static int CommentMargin = 5;
     }
 }

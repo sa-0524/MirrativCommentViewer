@@ -52,11 +52,25 @@ namespace MirrativCommentViewer.Dto
         /// </summary>
         public string user_name { get; set; }
 
-        public string CreateDate
+        /// <summary>
+        /// 投稿日時
+        /// </summary>
+        public DateTimeOffset CreateDateTime
         {
             get
             {
-                return DateTimeOffset.FromUnixTimeSeconds(long.Parse(created_at)).ToLocalTime().ToString("MM/dd HH:mm:ss");
+                return DateTimeOffset.FromUnixTimeSeconds(long.Parse(created_at)).ToLocalTime();
+            }
+        }
+
+        /// <summary>
+        /// 投稿日時（テキスト）
+        /// </summary>
+        public string CreateDateText
+        {
+            get
+            {
+                return CreateDateTime.ToString("MM/dd HH:mm:ss");
             }
         }
     }

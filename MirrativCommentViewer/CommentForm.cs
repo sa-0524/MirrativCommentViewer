@@ -1,5 +1,8 @@
-﻿using MirrativCommentViewer.Dao;
+﻿using MirrativCommentViewer.Control;
+using MirrativCommentViewer.Dao;
 using System;
+using System.Drawing;
+using System.Linq;
 using System.Net.Http;
 using System.Windows.Forms;
 
@@ -31,6 +34,11 @@ namespace MirrativCommentViewer
         private CommentDao dao;
 
         /// <summary>
+        /// 最新コメント日時
+        /// </summary>
+        private DateTimeOffset latestDateTime;
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="parent">呼び出し元</param>
@@ -38,7 +46,6 @@ namespace MirrativCommentViewer
         public CommentForm(MainForm parent, string liveId)
         {
             InitializeComponent();
-            gridComment.AutoGenerateColumns = false;
 
             this.parent = parent;
 
@@ -76,7 +83,22 @@ namespace MirrativCommentViewer
             var comments = await dao.GetCommentsAsync();
             if (comments != null)
             {
-                gridComment.DataSource = comments;
+                var tmpLatest = comments.Max(x => x.CreateDateTime);
+                if (tmpLatest > latestDateTime)
+                {
+                    Controls.Clear();
+
+                    var y = 0;
+                    comments.ForEach(x =>
+                    {
+                        var obj = new CommentPanel(x);
+                        obj.Location = new Point(Constants.CommentMargin, y);
+                        obj.Size = new Size(Size.Width - 50, obj.Size.Height);
+                        Controls.Add(obj);
+                        y += obj.Size.Height;
+                    });
+                    latestDateTime = tmpLatest;
+                }
             }
         }
     }
