@@ -35,8 +35,10 @@ namespace MirrativCommentViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(709, 386);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CommentForm";
             this.Text = "コメント一覧";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CommentForm_FormClosed);

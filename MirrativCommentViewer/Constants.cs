@@ -31,5 +31,10 @@ namespace MirrativCommentViewer
         /// コメントの間隔
         /// </summary>
         public static int CommentMargin = 5;
+
+        /// <summary>
+        /// コメント表示件数
+        /// </summary>
+        public static int CommentCount = 5;
     }
 }

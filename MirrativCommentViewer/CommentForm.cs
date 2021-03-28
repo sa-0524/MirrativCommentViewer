@@ -88,12 +88,14 @@ namespace MirrativCommentViewer
                 {
                     Controls.Clear();
 
+                    var latestComments = comments.OrderByDescending(x => x.CreateDateTime).
+                        Take(Constants.CommentCount).ToList();
                     var y = 0;
-                    comments.ForEach(x =>
+                    latestComments.ForEach(x =>
                     {
                         var obj = new CommentPanel(x);
                         obj.Location = new Point(Constants.CommentMargin, y);
-                        obj.Size = new Size(Size.Width - 50, obj.Size.Height);
+                        obj.Size = new Size(Size.Width, obj.Size.Height);
                         Controls.Add(obj);
                         y += obj.Size.Height;
                     });
