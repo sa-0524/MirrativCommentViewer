@@ -37,7 +37,10 @@ namespace MirrativCommentViewer.Control
         /// <param name="e"></param>
         private void DrawIcon(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(pboxIcon.Image, 0, 0, pboxIcon.Width, pboxIcon.Height);
+            if (pboxIcon.Image != null)
+            {
+                e.Graphics.DrawImage(pboxIcon.Image, 0, 0, pboxIcon.Width, pboxIcon.Height);
+            }
         }
     }
 }

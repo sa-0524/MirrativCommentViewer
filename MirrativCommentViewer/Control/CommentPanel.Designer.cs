@@ -77,7 +77,7 @@ namespace MirrativCommentViewer.Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.lblName);
