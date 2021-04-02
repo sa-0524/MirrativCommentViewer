@@ -18,6 +18,11 @@ namespace MirrativCommentViewer
         public const int RequestInterval = 3000;
 
         /// <summary>
+        /// 読み上げ周期（ミリ秒）
+        /// </summary>
+        public const int SpeechInterval = 1000;
+
+        /// <summary>
         /// API結果OK
         /// </summary>
         public const int StatusOK = 1;

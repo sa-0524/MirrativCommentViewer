@@ -1,6 +1,9 @@
 ﻿using MirrativCommentViewer.Control;
 using MirrativCommentViewer.Dao;
+using MirrativCommentViewer.Dto;
+using MirrativCommentViewer.Service;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
@@ -17,6 +20,11 @@ namespace MirrativCommentViewer
         /// 呼び出し元
         /// </summary>
         private MainForm parent;
+
+        /// <summary>
+        /// テキスト読み上げサービス
+        /// </summary>
+        private TextSpeechService sppechService;
 
         /// <summary>
         /// コメント取得処理タイマ
@@ -49,6 +57,8 @@ namespace MirrativCommentViewer
 
             this.parent = parent;
 
+            sppechService = new TextSpeechService();
+
             timer = new Timer();
             timer.Tick += RecieveCommentsAsync;
             timer.Interval = Constants.RequestInterval;
@@ -65,6 +75,8 @@ namespace MirrativCommentViewer
         /// <param name="e"></param>
         private void CommentForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            sppechService.Dispose();
+
             timer.Stop();
             timer.Dispose();
 
@@ -86,22 +98,37 @@ namespace MirrativCommentViewer
                 var tmpLatest = comments.Max(x => x.CreateDateTime);
                 if (tmpLatest > latestDateTime)
                 {
-                    Controls.Clear();
-
                     var latestComments = comments.OrderByDescending(x => x.CreateDateTime).
                         Take(Constants.CommentCount).ToList();
-                    var y = 0;
-                    latestComments.ForEach(x =>
-                    {
-                        var obj = new CommentPanel(x);
-                        obj.Location = new Point(Constants.CommentMargin, y);
-                        obj.Size = new Size(Size.Width, obj.Size.Height);
-                        Controls.Add(obj);
-                        y += obj.Size.Height;
-                    });
+
+                    DrawComment(latestComments);
+
+                    var newComments = latestComments.Where(x => x.CreateDateTime > latestDateTime).
+                        OrderBy(x => x.CreateDateTime).Select(x => x.comment);
+                    sppechService.Enqueue(newComments);
+
                     latestDateTime = tmpLatest;
                 }
             }
+        }
+
+        /// <summary>
+        /// コメント描画
+        /// </summary>
+        /// <param name="comments">コメント一覧</param>
+        private void DrawComment(List<CommentDto> comments)
+        {
+            Controls.Clear();
+
+            var y = 0;
+            comments.ForEach(x =>
+            {
+                var obj = new CommentPanel(x);
+                obj.Location = new Point(Constants.CommentMargin, y);
+                obj.Size = new Size(Size.Width, obj.Size.Height);
+                Controls.Add(obj);
+                y += obj.Size.Height;
+            });
         }
     }
 }
