@@ -57,10 +57,11 @@ namespace MirrativCommentViewer.Control
             // 
             // lblMessage
             // 
-            this.lblMessage.AutoSize = true;
+            this.lblMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMessage.Location = new System.Drawing.Point(70, 30);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(53, 15);
+            this.lblMessage.Size = new System.Drawing.Size(170, 20);
             this.lblMessage.TabIndex = 2;
             this.lblMessage.Text = "Message";
             // 
